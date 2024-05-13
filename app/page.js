@@ -91,7 +91,6 @@ export default function Home() {
   }, [gameStart.count, gameStart.start, forceClose]);
 
   const parentGridSize = "w-[" + imageSize + "px] h-[" + imageSize + "px]";
-  const remoteSrc = `https://imageground.netlify.app/.netlify/images?url=https://ik.imagekit.io/unburn/temp/38825852-c724-48f5-aac7-a9547ec08407_RPBaa1UJ2.png&fit=cover&w=${imageSize}&h=${imageSize}&position=right&q=50&fm=avif`;
 
   const imageSrc = `/.netlify/images?url=${imageList[imageId].image}&fit=cover&w=${imageSize}&h=${imageSize}&position=${position}&q=50&fm=avif`;
   const onBlurSrc = `/.netlify/images?url=${imageList[imageId].image}&fit=cover&w=200&h=200&position=${position}&q=20&fm=avif`;
@@ -150,12 +149,7 @@ export default function Home() {
             >
               <>
                 {imageSize === null && <PuzzleAreaBackground />}
-                {!display && (
-                  <PuzzleAreaOnResize
-                    handler={() => handleSetDisplay(imageSize)}
-                    src={onBlurSrc}
-                  />
-                )}
+                {!display && <PuzzleAreaOnResize src={onBlurSrc} />}
               </>
             </div>
           )}
@@ -222,19 +216,21 @@ export default function Home() {
           )}
         </div>
         {/* positions */}
-        <div className="flex flex-row gap-4 p-4">
-          {positionList.map((item, idx) => (
-            <button
-              key={idx}
-              onClick={() => setPosition(item.name)}
-              className={`${
-                item.name === position ? "bg-[#78B447]" : "bg-slate-200"
-              } p-4 text-lg rounded-md  `}
-            >
-              {item.icon}
-            </button>
-          ))}
-        </div>
+        {gameStart.start === false && (
+          <div className="flex flex-row gap-4 p-4">
+            {positionList.map((item, idx) => (
+              <button
+                key={idx}
+                onClick={() => setPosition(item.name)}
+                className={`${
+                  item.name === position ? "bg-[#78B447]" : "bg-slate-200"
+                } p-4 text-lg rounded-md  `}
+              >
+                {item.icon}
+              </button>
+            ))}
+          </div>
+        )}
       </div>
     </main>
   );
