@@ -1,0 +1,11 @@
+[build]
+  publish = ".next"
+  command = "npm run build"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+[images]
+  remote_images = ["https://ik.imagekit.io.com/*"]
+
+ 
